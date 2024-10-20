@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Asegura que el host abarque el 100% del viewport */
+}
+
+.main-content {
+  flex: 1; /* Hace que el contenido principal ocupe el espacio restante */
+  padding: 20px; /* Espaciado interno opcional */
+  overflow-y: auto; /* Agrega un desplazamiento vertical si el contenido es más alto que el viewport */
+}

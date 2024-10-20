@@ -1,0 +1,24 @@
+.app-header {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  &__logo {
+    flex: 1 1 auto;
+  }
+
+  &__nav {
+    a {
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-left: .5rem;
+    }
+
+    &-signup {
+      flex-direction: row-reverse;
+
+      .mat-icon {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+    }
+  }
+}
