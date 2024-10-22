@@ -1,14 +1,13 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
-import { MainComponent } from "../../shared/layouts/main/main.component";
+import { MainComponent } from '../../shared/layouts/main/main.component';
+import { ListsComponent } from '../../shared/components/lists/lists.component';
 
 @Component({
-  selector: "app-home",
+  selector: 'app-home',
   standalone: true,
-  imports: [MainComponent],
-  templateUrl: "./home.component.html",
-  styleUrl: "./home.component.scss"
+  imports: [MainComponent, ListsComponent],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent {
-
-}
+export class HomeComponent {}

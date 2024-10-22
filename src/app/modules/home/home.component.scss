@@ -1,0 +1,18 @@
+.page.home-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  h1 {
+    margin: 1rem;
+  }
+
+  .page__content {
+    box-sizing: border-box;
+    flex: 1;
+    padding: 1rem;
+    overflow: hidden;
+    width: 100%;
+  }
+}
