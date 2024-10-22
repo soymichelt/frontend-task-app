@@ -1,15 +1,12 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
-import { FooterComponent } from "../../components/footer/footer.component";
-import { HeaderComponent } from "../../components/header/header.component";
+import { HeaderComponent } from '../../components/header/header.component';
 
 @Component({
-  selector: "app-main",
+  selector: 'app-main',
   standalone: true,
-  imports: [HeaderComponent, FooterComponent],
-  templateUrl: "./main.component.html",
-  styleUrl: "./main.component.scss"
+  imports: [HeaderComponent],
+  templateUrl: './main.component.html',
+  styleUrl: './main.component.scss',
 })
-export class MainComponent {
-
-}
+export class MainComponent {}
