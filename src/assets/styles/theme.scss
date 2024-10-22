@@ -4,7 +4,6 @@
 // Plus imports for other components in your app.
 @use './../../app/shared/components/lists/lists.component.scss' as lists;
 
-
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
@@ -17,20 +16,20 @@ $dark-primary-text: rgb(231 227 252 / 0.9);
 $light-primary-text: rgb(231 227 252 / 0.7);
 
 $deep-purple-atom-palette: (
-  50: #EDE7F6,
-  100: #D1C4E9,
-  200: #B39DDB,
-  300: #9575CD,
-  400: #7E57C2,
-  500: #8C57FF,
-  600: #7C4DFF,
-  700: #6A4FFF,
+  50: #ede7f6,
+  100: #d1c4e9,
+  200: #b39ddb,
+  300: #9575cd,
+  400: #7e57c2,
+  500: #8c57ff,
+  600: #7c4dff,
+  700: #6a4fff,
   800: #373452,
-  900: #312D4B,
-  A100: #D1C4E9,
-  A200: #312D4B,
-  A400: #FF5252,
-  A700: #FF1744,
+  900: #312d4b,
+  A100: #d1c4e9,
+  A200: #312d4b,
+  A400: #ff5252,
+  A700: #ff1744,
   contrast: (
     50: $dark-primary-text,
     100: $dark-primary-text,
@@ -46,7 +45,7 @@ $deep-purple-atom-palette: (
     A200: $dark-primary-text,
     A400: $dark-primary-text,
     A700: white,
-  )
+  ),
 );
 
 $blue-accent-palette: (
@@ -79,11 +78,19 @@ $blue-accent-palette: (
     A200: $light-primary-text,
     A400: $light-primary-text,
     A700: $light-primary-text,
-  )
+  ),
 );
 
-$atom-challenge-fe-template-primary: mat.define-palette($deep-purple-atom-palette, 900);
-$atom-challenge-fe-template-accent: mat.define-palette($blue-accent-palette, A200, A100, A400);
+$atom-challenge-fe-template-primary: mat.define-palette(
+  $deep-purple-atom-palette,
+  900
+);
+$atom-challenge-fe-template-accent: mat.define-palette(
+  $blue-accent-palette,
+  A200,
+  A100,
+  A400
+);
 
 // The "warn" palette is optional and defaults to red if not specified.
 $my-warn: mat.define-palette(mat.$red-palette);
@@ -94,20 +101,21 @@ $atom-typography: mat.define-typography-config(
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$atom-challenge-fe-template-theme: mat.define-dark-theme((
-  color: (
-    primary: $atom-challenge-fe-template-primary,
-    accent: $atom-challenge-fe-template-accent,
-    warn: $my-warn,
-  ),
-  typography: $atom-typography,
-));
+$atom-challenge-fe-template-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $atom-challenge-fe-template-primary,
+      accent: $atom-challenge-fe-template-accent,
+      warn: $my-warn,
+    ),
+    typography: $atom-typography,
+  )
+);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include mat.all-component-themes($atom-challenge-fe-template-theme);
-
 
 /* You can add global styles to this file, and also import other style files */
 @include lists.theme($atom-challenge-fe-template-theme);
@@ -115,4 +123,13 @@ $atom-challenge-fe-template-theme: mat.define-dark-theme((
 body {
   background-color: mat.get-color-from-palette($deep-purple-atom-palette, 900);
   color: $dark-primary-text;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: $dark-primary-text;
+  text-decoration: none;
 }

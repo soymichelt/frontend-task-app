@@ -1,7 +1,19 @@
 <app-main>
   <div class="page home-page">
     <header class="page__header">
-      <h1>Tasks</h1>
+      <h1 class="page__header__title">
+        Tasks Manager
+        <span> 68% completado </span>
+      </h1>
+      <div class="page__header__actions">
+        <button mat-icon-button>
+          <mat-icon>refresh</mat-icon>
+        </button>
+        <button mat-raised-button color="accent">
+          <mat-icon>add</mat-icon>
+          Añadir
+        </button>
+      </div>
     </header>
     <section class="page__content">
       <app-lists></app-lists>

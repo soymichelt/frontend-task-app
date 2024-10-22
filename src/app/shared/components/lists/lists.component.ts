@@ -1,16 +1,17 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
-  CdkDropListGroup,
-  CdkDragDrop,
   CdkDrag,
+  CdkDragDrop,
   CdkDropList,
+  CdkDropListGroup,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
+
 import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
 
 @Component({
@@ -57,7 +58,7 @@ export class ListsComponent {
   };
 
   public drop(event: CdkDragDrop<TaskItem[]>): void {
-    if (event.previousContainer === event.container) {
+    if (event.previousContainer.id === event.container.id) {
       return;
     }
 
@@ -65,10 +66,8 @@ export class ListsComponent {
       event.previousContainer.data,
       event.container.data,
       event.previousIndex,
-      event.currentIndex
+      event.currentIndex,
     );
-
-    console.log(this.tasks);
   }
 
   public getListData(groupKey: GroupKey): TaskItem[] {

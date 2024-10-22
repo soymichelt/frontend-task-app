@@ -1,14 +1,12 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
-import { MainComponent } from "../../shared/layouts/main/main.component";
+import { AuthComponent } from '../../shared/layouts/auth/auth.component';
 
 @Component({
-  selector: "app-signin",
+  selector: 'app-signin',
   standalone: true,
-  imports: [MainComponent],
-  templateUrl: "./signin.component.html",
-  styleUrl: "./signin.component.scss"
+  imports: [AuthComponent],
+  templateUrl: './signin.component.html',
+  styleUrl: './signin.component.scss',
 })
-export class SigninComponent {
-
-}
+export class SigninComponent {}
