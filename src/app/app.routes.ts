@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
       const m = await import('./modules/home/home.component');
       return m.HomeComponent;
     },
+    canActivate: [AuthGuard],
   },
   {
     path: 'signin',
