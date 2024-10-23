@@ -56,6 +56,13 @@
           }
         ],
         "@typescript-eslint/no-shadow": "error",
+        "@typescript-eslint/no-unused-vars": [
+          "warn",
+          {
+            "varsIgnorePattern": "^_",
+            "argsIgnorePattern": "^_"
+          }
+        ],
         "@typescript-eslint/no-explicit-any": 0,
         // ANGUAR ESLINT
         "@angular-eslint/directive-selector": [
