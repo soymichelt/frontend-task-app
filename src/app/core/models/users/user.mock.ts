@@ -12,4 +12,3 @@ export class UserMock {
     } as User;
   }
 }
-

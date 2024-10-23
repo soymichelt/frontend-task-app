@@ -1,0 +1,38 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+.auth-form {
+  mat-form-field {
+    display: block;
+  }
+  
+  &__actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    width: 100%;
+  }
+  
+  & .divider {
+    align-items: center;
+    display: flex;
+    gap: .75rem;
+    justify-content: space-between;
+    padding-block: 1rem;
+    width: 100%;
+  
+    &::before, &::after {
+      border-block: 1px solid rgb(231 227 252 / 0.12);
+      content: ' ';
+      flex: 1;
+      z-index: 9;
+    }
+  }
+  
+  &__subactions {
+    a {
+      display: flex;
+    }
+  }
+}

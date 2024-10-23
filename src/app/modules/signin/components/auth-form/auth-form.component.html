@@ -1,0 +1,34 @@
+<app-form-wrapper>
+  <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <mat-form-field color="accent" appearance="outline" class="full-width">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required>
+      <mat-error *ngIf="emailIsInvalid()">
+        El email es inválido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="outline" class="full-width">
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" required>
+      <mat-error *ngIf="passwordIsInvalid()">
+        Contraseña requerida
+      </mat-error>
+    </mat-form-field>
+
+    <div class="auth-form__actions">
+      <button mat-raised-button color="accent" type="submit" [disabled]="loginForm.invalid || isLoading()">
+        Empezar
+      </button>
+      <a mat-button color="accent">Olvidó su contraseña?</a>
+    </div>
+
+    <div class="divider">
+      <span>or</span>
+    </div>
+
+    <div class="auth-form__subactions">
+      <a mat-stroked-button color="accent" routerLink="/signup">Crea una cuenta</a>
+    </div>
+  </form>
+</app-form-wrapper>

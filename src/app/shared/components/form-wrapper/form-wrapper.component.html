@@ -1,0 +1,19 @@
+<div class="form-wrapper" color="primary">
+  <mat-card class="form-wrapper__container mat-elevation-z8">
+    <mat-card-header class="form-wrapper__header">
+      <a routerLink="/">
+        <span class="logo">
+          <img alt="Logo de Buddy" ngSrc="assets/images/logo-buddy.png" width="32" height="32" />
+          Buddy
+        </span>
+      </a>
+
+      <span class="title">Bienvenido a <a routerLink="/">Buddy</a>! 😉</span>
+
+      <span class="subtitle">Todavía no tienes cuenta? <a routerLink="/signup">Regístrate</a></span>
+    </mat-card-header>
+    <mat-card-content class="form-wrapper__content">
+      <ng-content></ng-content>
+    </mat-card-content>
+  </mat-card>
+</div>
