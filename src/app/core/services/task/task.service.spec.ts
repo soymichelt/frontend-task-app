@@ -33,7 +33,7 @@ describe('TaskService tests', () => {
   it('Should get tasks', () => {
     const mockTasks: TasksResultModel = {
       statusCode: 200,
-      data: TaskMock.buildTaskList(5),
+      body: TaskMock.buildTaskList(5),
     };
 
     taskService.getTasks().subscribe((tasks) => {
