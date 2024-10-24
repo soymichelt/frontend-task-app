@@ -158,6 +158,26 @@
         }
       }
     }
+
+    &--empty {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+    &__empty {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: absolute;
+
+      img {
+        margin-bottom: 1.5rem;
+        opacity: .25;
+      }
+    }
   }
 }
 

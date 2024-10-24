@@ -5,16 +5,14 @@ import {
   CdkDropListGroup,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import {
-  GroupKey, GroupType, TaskGroupList, TaskItem
-} from './lists.model';
+import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
 
 @Component({
   selector: 'app-lists',
@@ -28,6 +26,7 @@ import {
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    NgOptimizedImage,
   ],
   templateUrl: './lists.component.html',
   styleUrl: './lists.component.scss',
@@ -77,15 +76,20 @@ export class ListsComponent {
     return list;
   }
 
+  public listIsEmpty(groupKey: GroupKey): boolean {
+    return !this.getListData(groupKey)?.length;
+  }
+
   public getListCount(groupKey: GroupKey): number {
     const list = this.tasks[groupKey] || [];
     return list.length || 0;
   }
 
   public getListConnectedTo(groupKey: GroupKey): string[] {
-    const groups = this.groups
-      .filter(({ key }) => key !== groupKey)
-      .map(({ key }) => `${key}_LIST`) || [];
+    const groups =
+      this.groups
+        .filter(({ key }) => key !== groupKey)
+        .map(({ key }) => `${key}_LIST`) || [];
 
     return groups;
   }
