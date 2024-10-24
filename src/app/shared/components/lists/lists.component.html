@@ -50,7 +50,7 @@
         <footer class="list-container__list__item-footer">
           <span class="date">
             <mat-icon class="icon">event</mat-icon>
-            {{ item.createdAt | date: 'MMM d, y' }}
+            {{ item.deadline | date: 'MMM d, y' }}
           </span>
 
           <button mat-stroked-button (click)="handleCompleteTaskClick(item)">Complete</button>

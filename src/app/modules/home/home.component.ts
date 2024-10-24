@@ -59,30 +59,35 @@ export class HomeComponent implements OnInit {
     this.getTasks();
   }
 
-  public showCreateTaskDialog(): void {
-    this.dialog.open(EditTaskComponent, {
-      maxWidth: '540px',
-      width: 'calc(100% - 40px)',
-      data: { isNew: true },
+  public showCreateTask(): void {
+    this.showEditTaskDialog({ isNew: true });
+  }
+
+  public showCreateTaskWithGroupSelected(groupSelected: string): void {
+    this.showEditTaskDialog({
+      status: groupSelected,
+      isNew: true,
     });
   }
 
-  public showCreateTaskWithGroupSelectedDialog(groupSelected: string): void {
-    this.dialog.open(EditTaskComponent, {
-      maxWidth: '540px',
-      width: 'calc(100% - 40px)',
-      data: { status: groupSelected, isNew: true },
+  public showEditTask(item: TaskItem): void {
+    this.showEditTaskDialog({
+      ...item,
+      isNew: false,
     });
   }
 
-  public showEditTaskDialog(item: TaskItem): void {
-    this.dialog.open(EditTaskComponent, {
+  private showEditTaskDialog(data?: Record<string, any>): void {
+    const dialogRef = this.dialog.open(EditTaskComponent, {
       maxWidth: '540px',
       width: 'calc(100% - 40px)',
-      data: {
-        ...item,
-        isNew: false,
-      },
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.['saved']) {
+        this.getTasks();
+      }
     });
   }
 

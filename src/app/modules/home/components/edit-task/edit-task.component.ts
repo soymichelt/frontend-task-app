@@ -102,7 +102,7 @@ export class EditTaskComponent {
 
     actionResult.subscribe({
       next: (result) => {
-        this.onCancelClick(result.data);
+        this.onCancelClick(result.body);
       },
       error: (error) => {
         this.showNotification(
