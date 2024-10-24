@@ -18,7 +18,11 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
+import { TaskModel } from '../../../../core/models/tasks/task.model';
+import { TaskUpdateModel } from '../../../../core/models/tasks/task-update.model';
+import { TaskService } from '../../../../core/services/task/task.service';
 import { CustomDialogComponent } from '../../../../shared/components/custom-dialog/custom-dialog.component';
 
 @Component({
@@ -34,13 +38,16 @@ import { CustomDialogComponent } from '../../../../shared/components/custom-dial
     MatInputModule,
     MatNativeDateModule,
     MatSelectModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
   ],
   templateUrl: './edit-task.component.html',
   styleUrl: './edit-task.component.scss',
 })
 export class EditTaskComponent {
+  private taskSelectedId: string;
   public isNew: boolean = true;
+  public isLoading: boolean = false;
 
   public editForm: FormGroup;
 
@@ -48,6 +55,8 @@ export class EditTaskComponent {
     private readonly formBuilder: FormBuilder,
     private readonly dialogRef: MatDialogRef<EditTaskComponent>,
     @Inject(MAT_DIALOG_DATA) private readonly dialogData: Record<string, any>,
+    private readonly taskService: TaskService,
+    private readonly snackBar: MatSnackBar,
   ) {
     this.editForm = this.formBuilder.group({
       title: [
@@ -70,10 +79,40 @@ export class EditTaskComponent {
       status: ['', Validators.required],
       level: ['', Validators.required],
     });
+
+    this.taskSelectedId = dialogData?.['taskSelectedId'];
+    this.isNew = dialogData?.['isNew'] || true;
   }
 
-  public onCancelClick(): void {
-    this.dialogRef.close();
+  public onCancelClick(taskCreatedOrUpdated?: TaskModel | null): void {
+    this.dialogRef.close({
+      saved: !!taskCreatedOrUpdated,
+      taskCreatedOrUpdated,
+    });
+  }
+
+  public onSaveClick(): void {
+    if (!this.editForm.valid) return;
+
+    this.isLoading = true;
+    const task = this.editForm.value as TaskUpdateModel;
+    const actionResult = this.isNew
+      ? this.taskService.createTask(task)
+      : this.taskService.updateTask(this.taskSelectedId, task);
+
+    actionResult.subscribe({
+      next: (result) => {
+        this.onCancelClick(result.data);
+      },
+      error: (error) => {
+        this.showNotification(
+          error.message || 'Ha ocurrido un error inesperado',
+        );
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   public hasError(fieldName: string, errorName: string) {
@@ -92,5 +131,12 @@ export class EditTaskComponent {
 
     return field;
   }
-}
 
+  private showNotification(message: string): void {
+    this.snackBar.open(message, 'Done', {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'left',
+    });
+  }
+}

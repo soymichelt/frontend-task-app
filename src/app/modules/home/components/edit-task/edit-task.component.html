@@ -1,4 +1,4 @@
-<form class="edit-task" [formGroup]="editForm">
+<form class="edit-task" [formGroup]="editForm" (ngSubmit)="onSaveClick()">
   <app-custom-dialog title="Editando tarea">
     @if (isNew) {
     <p>Registra tus tareas y mejora tu productividad 😎</p>
@@ -26,7 +26,7 @@
 
     <mat-form-field color="accent" appearance="outline">
       <mat-label>Fecha límite</mat-label>
-      <input matInput [matDatepicker]="picker" required />
+      <input matInput formControlName="deadline" [matDatepicker]="picker" required />
       <mat-hint>YYYY/MM/DD</mat-hint>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-error *ngIf="hasError('deadline', 'required')">La fecha es requerido</mat-error>
@@ -35,7 +35,7 @@
 
     <mat-form-field color="accent" appearance="outline">
       <mat-label>Estado de la tarea</mat-label>
-      <mat-select>
+      <mat-select formControlName="status">
         <mat-option value="TODO">To-Do</mat-option>
         <mat-option value="IN_PROGRESS">In Progress</mat-option>
         <mat-option value="TEST">Test</mat-option>
@@ -43,23 +43,24 @@
         <mat-option value="DONE">Done</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="hasError('status', 'required')">Status es requerido</mat-error>
+      <mat-error *ngIf="hasError('status', 'required')">Estado es requerido</mat-error>
     </mat-form-field>
 
     <mat-form-field color="accent" appearance="outline">
       <mat-label>Nivel de importancia</mat-label>
-      <mat-select>
+      <mat-select formControlName="level">
         <mat-option value="LOW">Low</mat-option>
         <mat-option value="MEDIUM">Medium</mat-option>
         <mat-option value="HIGH">High</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="hasError('level', 'required')">Nivel es requerido</mat-error>
+      <mat-error *ngIf="hasError('level', 'required')">Estado es requerido</mat-error>
     </mat-form-field>
 
     <div class="edit-task__actions" actions>
-      <button mat-button (click)="onCancelClick()">Cancelar</button>
-      <button mat-raised-button color="accent" type="submit" [disabled]="editForm.invalid">Guardar Cambios</button>
+      <button mat-button (click)="onCancelClick()" [disabled]="isLoading">Cancelar</button>
+      <button mat-raised-button color="accent" type="submit" [disabled]="editForm.invalid || isLoading">Guardar
+        Cambios</button>
     </div>
   </app-custom-dialog>
 </form>

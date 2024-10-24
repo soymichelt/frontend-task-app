@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { TasksResultModel } from '../../models/tasks/tasks.model';
 import { environment } from '../../../environments/environment';
-import { TaskModel, TaskResultModel } from '../../models/tasks/task.model';
+import { TaskResultModel } from '../../models/tasks/task.model';
 import { SuccessResultModel } from '../../models/result/success-result.model';
 import { TaskUpdateModel } from '../../models/tasks/task-update.model';
 
@@ -12,7 +12,7 @@ import { TaskUpdateModel } from '../../models/tasks/task-update.model';
   providedIn: 'root',
 })
 export class TaskService {
-  private API_URL = environment.apiUrl;
+  private API_URL = `${environment.apiUrl}/tasks`;
 
   constructor(private readonly httpClient: HttpClient) {}
 
@@ -20,7 +20,7 @@ export class TaskService {
     return this.httpClient.get<TasksResultModel>(this.API_URL);
   }
 
-  public createTask(task: TaskModel): Observable<TaskResultModel> {
+  public createTask(task: TaskUpdateModel): Observable<TaskResultModel> {
     return this.httpClient.post<TaskResultModel>(this.API_URL, task);
   }
 

@@ -1,15 +1,8 @@
 import {
   HttpClientTestingModule,
   HttpTestingController,
-  provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import {
-  HttpClient,
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { of } from 'rxjs';
 
 import { TaskService } from './task.service';
 import { environment } from '../../../environments/environment';
@@ -17,6 +10,7 @@ import { TasksResultModel } from '../../models/tasks/tasks.model';
 import { TaskMock } from '../../models/tasks/task.mock';
 import { TaskModel, TaskResultModel } from '../../models/tasks/task.model';
 import { SuccessResultModel } from '../../models/result/success-result.model';
+import { TaskUpdateModel } from '../../models/tasks/task-update.model';
 
 describe('TaskService tests', () => {
   let taskService: TaskService;
@@ -52,37 +46,49 @@ describe('TaskService tests', () => {
   });
 
   it('Should create a new task', () => {
-    const newTask: TaskModel = TaskMock.buildTask();
-    const createdTask: TaskResultModel = {
+    const taskCreated: TaskResultModel = {
       statusCode: 200,
-      data: newTask,
+      data: TaskMock.buildTask(),
+    };
+    const newTask: TaskUpdateModel = {
+      title: taskCreated.data.title,
+      description: taskCreated.data.description,
+      deadline: taskCreated.data.deadline,
+      level: taskCreated.data.level,
+      status: taskCreated.data.status,
     };
 
     taskService.createTask(newTask).subscribe((task) => {
-      expect(task).toEqual(createdTask);
+      expect(task).toEqual(taskCreated);
     });
 
     const req = httpMock.expectOne(environment.apiUrl);
     expect(req.request.method).toEqual('POST');
     expect(req.request.body).toEqual(newTask);
-    req.flush(createdTask);
+    req.flush(taskCreated);
   });
 
   it('Should update task', () => {
-    const taskToUpdate: TaskModel = TaskMock.buildTask();
     const taskUpdated: TaskResultModel = {
       statusCode: 200,
-      data: taskToUpdate,
+      data: TaskMock.buildTask(),
+    };
+    const taskToUpdate: TaskUpdateModel = {
+      title: taskUpdated.data.title,
+      description: taskUpdated.data.description,
+      deadline: taskUpdated.data.deadline,
+      level: taskUpdated.data.level,
+      status: taskUpdated.data.status,
     };
 
     taskService
-      .updateTask(taskToUpdate.taskId, taskToUpdate)
+      .updateTask(taskUpdated.data.taskId, taskToUpdate)
       .subscribe((task) => {
         expect(task).toEqual(taskUpdated);
       });
 
     const req = httpMock.expectOne(
-      `${environment.apiUrl}/${taskToUpdate.taskId}`,
+      `${environment.apiUrl}/${taskUpdated.data.taskId}`,
     );
     expect(req.request.method).toEqual('PATCH');
     expect(req.request.body).toEqual(taskToUpdate);
