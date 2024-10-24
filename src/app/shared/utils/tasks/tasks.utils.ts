@@ -48,5 +48,5 @@ export const calculatePercentageTaskCompleted = (
   const totalTasks = tasks.body?.length || 0;
   if (totalTasks === 0) return null;
 
-  return (tasksCompleted * 100) / totalTasks;
+  return parseFloat(((tasksCompleted * 100) / totalTasks).toFixed(2));
 };
