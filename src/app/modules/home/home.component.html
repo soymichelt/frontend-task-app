@@ -3,7 +3,8 @@
     <header class="page__header">
       <h1 class="page__header__title">
         Tasks Manager
-        <span> 68% completado </span>
+        <span *ngIf="percentageTasksCompleted !== null">{{percentageTasksCompleted}}% completado</span>
+        <span *ngIf="percentageTasksCompleted === null">Sin tareas de momento</span>
       </h1>
       <div class="page__header__actions">
         <button mat-icon-button (click)="refreshTasks()">

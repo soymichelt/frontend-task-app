@@ -1,11 +1,11 @@
-import { TasksResultModel } from '../../../../core/models/tasks/tasks.model';
+import { TasksResultModel } from '../../../core/models/tasks/tasks.model';
 import {
   GroupKey,
   GroupType,
   Level,
   TaskGroupList,
   TaskItem,
-} from '../../lists/lists.model';
+} from '../../components/lists/lists.model';
 
 export const groups: GroupType[] = [
   { key: 'TODO', label: 'To-Do' },
@@ -38,4 +38,15 @@ export const mapToTaskGroup = (tasks: TasksResultModel): TaskGroupList => {
   });
 
   return result;
+};
+
+export const calculatePercentageTaskCompleted = (
+  tasks: TasksResultModel,
+): number | null => {
+  const tasksCompleted =
+    tasks.body?.filter(({ status }) => status === 'DONE').length || 0;
+  const totalTasks = tasks.body?.length || 0;
+  if (totalTasks === 0) return null;
+
+  return (tasksCompleted * 100) / totalTasks;
 };

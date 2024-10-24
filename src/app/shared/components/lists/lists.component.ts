@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
-import { groups } from '../utils/tasks/tasks.utils';
+import { groups } from '../../utils/tasks/tasks.utils';
 
 @Component({
   selector: 'app-lists',

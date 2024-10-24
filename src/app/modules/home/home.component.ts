@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -12,13 +13,16 @@ import {
   TaskItem,
 } from '../../shared/components/lists/lists.model';
 import { TaskService } from '../../core/services/task/task.service';
-import { TasksResultModel } from '../../core/models/tasks/tasks.model';
-import { mapToTaskGroup } from '../../shared/components/utils/tasks/tasks.utils';
+import {
+  calculatePercentageTaskCompleted,
+  mapToTaskGroup,
+} from '../../shared/utils/tasks/tasks.utils';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
+    CommonModule,
     EditTaskComponent,
     ListsComponent,
     MainComponent,
@@ -39,6 +43,7 @@ export class HomeComponent implements OnInit {
     ON_HOLD: [],
     DONE: [],
   };
+  public percentageTasksCompleted: number | null = null;
 
   constructor(
     private readonly dialog: MatDialog,
@@ -87,6 +92,8 @@ export class HomeComponent implements OnInit {
     this.taskService.getTasks().subscribe({
       next: (result) => {
         this.tasksGroup = mapToTaskGroup(result);
+        this.percentageTasksCompleted =
+          calculatePercentageTaskCompleted(result);
       },
       error: (error) => {
         this.showNotification(
