@@ -12,7 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
+import {
+  GroupKey, GroupType, TaskGroupList, TaskItem
+} from './lists.model';
 
 @Component({
   selector: 'app-lists',
@@ -81,10 +83,9 @@ export class ListsComponent {
   }
 
   public getListConnectedTo(groupKey: GroupKey): string[] {
-    const groups =
-      this.groups
-        .filter(({ key }) => key !== groupKey)
-        .map(({ key }) => `${key}_LIST`) || [];
+    const groups = this.groups
+      .filter(({ key }) => key !== groupKey)
+      .map(({ key }) => `${key}_LIST`) || [];
 
     return groups;
   }
