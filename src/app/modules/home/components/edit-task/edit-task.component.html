@@ -1,0 +1,65 @@
+<form class="edit-task" [formGroup]="editForm">
+  <app-custom-dialog title="Editando tarea">
+    @if (isNew) {
+    <p>Registra tus tareas y mejora tu productividad 😎</p>
+    } @else {
+    <p>Edita las tareas para una mejor organización 😅</p>
+    }
+
+    <mat-form-field color="accent" appearance="outline">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title" type="text" required>
+
+      <mat-error *ngIf="hasError('title', 'required')">El título es requerido</mat-error>
+      <mat-error *ngIf="hasError('title', 'minlength')">Debe tener al menos 10 caracteres</mat-error>
+      <mat-error *ngIf="hasError('title', 'maxlength')">Has superado el máximo de 80 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" type="text" required></textarea>
+
+      <mat-error *ngIf="hasError('description', 'required')">El título es requerido</mat-error>
+      <mat-error *ngIf="hasError('description', 'minlength')">Debe tener al menos 10 caracteres</mat-error>
+      <mat-error *ngIf="hasError('description', 'maxlength')">Has superado el máximo de 200 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="outline">
+      <mat-label>Fecha límite</mat-label>
+      <input matInput [matDatepicker]="picker" required />
+      <mat-hint>YYYY/MM/DD</mat-hint>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-error *ngIf="hasError('deadline', 'required')">La fecha es requerido</mat-error>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="outline">
+      <mat-label>Estado de la tarea</mat-label>
+      <mat-select>
+        <mat-option value="TODO">To-Do</mat-option>
+        <mat-option value="IN_PROGRESS">In Progress</mat-option>
+        <mat-option value="TEST">Test</mat-option>
+        <mat-option value="ON_HOLD">On Hold</mat-option>
+        <mat-option value="DONE">Done</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="hasError('status', 'required')">Status es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent" appearance="outline">
+      <mat-label>Nivel de importancia</mat-label>
+      <mat-select>
+        <mat-option value="LOW">Low</mat-option>
+        <mat-option value="MEDIUM">Medium</mat-option>
+        <mat-option value="HIGH">High</mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="hasError('level', 'required')">Nivel es requerido</mat-error>
+    </mat-form-field>
+
+    <div class="edit-task__actions" actions>
+      <button mat-button (click)="onCancelClick()">Cancelar</button>
+      <button mat-raised-button color="accent" type="submit" [disabled]="editForm.invalid">Guardar Cambios</button>
+    </div>
+  </app-custom-dialog>
+</form>

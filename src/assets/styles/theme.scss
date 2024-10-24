@@ -2,6 +2,7 @@
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
+@use './../../app/shared/components//custom-dialog/custom-dialog.component.scss' as customDialog;
 @use './../../app/shared/components/form-wrapper/form-wrapper.component.scss' as formWrapper;
 @use './../../app/shared/components/lists/lists.component.scss' as lists;
 
@@ -119,6 +120,7 @@ $atom-challenge-fe-template-theme: mat.define-dark-theme(
 @include mat.all-component-themes($atom-challenge-fe-template-theme);
 
 /* You can add global styles to this file, and also import other style files */
+@include customDialog.theme($atom-challenge-fe-template-theme);
 @include formWrapper.theme($atom-challenge-fe-template-theme);
 @include lists.theme($atom-challenge-fe-template-theme);
 
