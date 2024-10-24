@@ -16,10 +16,10 @@ export type TaskGroupList = {
 
 export type TaskItem = {
   taskId: string;
-  group: string;
   title: string;
   description: string;
   status: GroupKey;
   level: Level;
+  deadline: string;
   createdAt: string;
 };

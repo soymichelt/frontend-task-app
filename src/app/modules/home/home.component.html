@@ -6,17 +6,19 @@
         <span> 68% completado </span>
       </h1>
       <div class="page__header__actions">
-        <button mat-icon-button>
+        <button mat-icon-button (click)="refreshTasks()">
           <mat-icon>refresh</mat-icon>
         </button>
-        <button mat-raised-button color="accent" (click)="showEditTaskDialog()">
+        <button mat-raised-button color="accent" (click)="showCreateTaskDialog()">
           <mat-icon>add</mat-icon>
           Añadir
         </button>
       </div>
     </header>
+
     <section class="page__content">
-      <app-lists></app-lists>
+      <app-lists [tasks]="tasksGroup" (onAddTaskClick)="showCreateTaskWithGroupSelectedDialog($event)"
+        (onEditTaskClick)="showEditTaskDialog($event)"></app-lists>
     </section>
   </div>
 </app-main>

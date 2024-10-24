@@ -58,9 +58,12 @@ export class EditTaskComponent {
     private readonly taskService: TaskService,
     private readonly snackBar: MatSnackBar,
   ) {
+    this.taskSelectedId = dialogData?.['taskSelectedId'];
+    this.isNew = dialogData?.['isNew'] || true;
+
     this.editForm = this.formBuilder.group({
       title: [
-        '',
+        dialogData?.['title'],
         [
           Validators.required,
           Validators.minLength(10),
@@ -68,20 +71,17 @@ export class EditTaskComponent {
         ],
       ],
       description: [
-        '',
+        dialogData?.['description'],
         [
           Validators.required,
           Validators.minLength(10),
           Validators.maxLength(200),
         ],
       ],
-      deadline: ['', Validators.required],
-      status: ['', Validators.required],
-      level: ['', Validators.required],
+      deadline: [dialogData?.['deadline'], Validators.required],
+      status: [dialogData?.['status'], Validators.required],
+      level: [dialogData?.['level'], Validators.required],
     });
-
-    this.taskSelectedId = dialogData?.['taskSelectedId'];
-    this.isNew = dialogData?.['isNew'] || true;
   }
 
   public onCancelClick(taskCreatedOrUpdated?: TaskModel | null): void {

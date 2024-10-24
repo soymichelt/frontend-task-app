@@ -6,13 +6,14 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
+import { groups } from '../utils/tasks/tasks.utils';
 
 @Component({
   selector: 'app-lists',
@@ -32,31 +33,18 @@ import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
   styleUrl: './lists.component.scss',
 })
 export class ListsComponent {
-  public groups: GroupType[] = [
-    { key: 'TODO', label: 'To-Do' },
-    { key: 'IN_PROGRESS', label: 'In Progress' },
-    { key: 'TEST', label: 'Test' },
-    { key: 'ON_HOLD', label: 'On Hold' },
-    { key: 'DONE', label: 'Done' },
-  ];
+  @Output() onAddTaskClick = new EventEmitter<string>();
+  @Output() onEditTaskClick = new EventEmitter<TaskItem>();
+  @Output() onDeleteTaskClick = new EventEmitter<TaskItem>();
+  @Output() onCompleteTaskClick = new EventEmitter<TaskItem>();
 
-  public tasks: TaskGroupList = {
-    TODO: [
-      {
-        taskId: '1',
-        group: 'Personal',
-        title: 'Tengo que ir al gym a partir de manana',
-        description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown`,
-        status: 'TODO',
-        level: 'MEDIUM',
-        createdAt: '2024-10-21T18:26:08.396Z',
-      },
-    ],
-    IN_PROGRESS: [],
-    TEST: [],
-    ON_HOLD: [],
-    DONE: [],
-  };
+  @Input() public tasks!: TaskGroupList;
+
+  public groups: GroupType[];
+
+  constructor() {
+    this.groups = groups;
+  }
 
   public drop(event: CdkDragDrop<TaskItem[]>): void {
     if (event.previousContainer.id === event.container.id) {
@@ -72,7 +60,7 @@ export class ListsComponent {
   }
 
   public getListData(groupKey: GroupKey): TaskItem[] {
-    const list = this.tasks[groupKey] || [];
+    const list = this.tasks?.[groupKey] || [];
     return list;
   }
 
@@ -81,16 +69,32 @@ export class ListsComponent {
   }
 
   public getListCount(groupKey: GroupKey): number {
-    const list = this.tasks[groupKey] || [];
-    return list.length || 0;
+    const list = this.tasks?.[groupKey] || [];
+    return list?.length || 0;
   }
 
   public getListConnectedTo(groupKey: GroupKey): string[] {
-    const groups =
-      this.groups
+    const connectedTo =
+      groups
         .filter(({ key }) => key !== groupKey)
         .map(({ key }) => `${key}_LIST`) || [];
 
-    return groups;
+    return connectedTo;
+  }
+
+  public handleAddTaskClick(group: string): void {
+    this.onAddTaskClick.emit(group);
+  }
+
+  public handleEditTaskClick(task: TaskItem): void {
+    this.onEditTaskClick.emit(task);
+  }
+
+  public handleDeleteTaskClick(task: TaskItem): void {
+    this.onDeleteTaskClick.emit(task);
+  }
+
+  public handleCompleteTaskClick(task: TaskItem): void {
+    this.onCompleteTaskClick.emit(task);
   }
 }
