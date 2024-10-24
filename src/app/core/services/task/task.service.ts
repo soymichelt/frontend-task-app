@@ -34,10 +34,22 @@ export class TaskService {
     );
   }
 
+  public updateStatusTask(
+    taskId: string,
+    status: string,
+  ): Observable<TaskResultModel> {
+    return this.httpClient.patch<TaskResultModel>(
+      `${this.API_URL}/${taskId}/status`,
+      {
+        status,
+      },
+    );
+  }
+
   public deleteTask(
     taskId: string,
-  ): Observable<Omit<SuccessResultModel, 'data'>> {
-    return this.httpClient.delete<Omit<SuccessResultModel, 'data'>>(
+  ): Observable<Omit<SuccessResultModel, 'body'>> {
+    return this.httpClient.delete<Omit<SuccessResultModel, 'body'>>(
       `${this.API_URL}/${taskId}`,
     );
   }
