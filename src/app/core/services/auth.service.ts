@@ -31,4 +31,12 @@ export class AuthService {
       this.firebaseAuth.onAuthStateChanged(observer as any);
     });
   }
+
+  public getAuthToken(): Observable<string | null> {
+    if (this.firebaseAuth.currentUser) {
+      return from(this.firebaseAuth.currentUser.getIdToken());
+    }
+
+    return from(Promise.resolve(null));
+  }
 }
