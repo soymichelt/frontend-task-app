@@ -9,4 +9,5 @@ export const environment = {
     messagingSenderId: '222317116895',
     measurementId: 'G-1TW2LPLHRP',
   },
+  apiUrl: 'https://us-central1-tasksapp-dev.cloudfunctions.net/api',
 };
