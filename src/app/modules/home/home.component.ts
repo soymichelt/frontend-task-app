@@ -5,18 +5,20 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
-import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { TaskService } from '../../core/services/task/task.service';
 import { ListsComponent } from '../../shared/components/lists/lists.component';
-import { MainComponent } from '../../shared/layouts/main/main.component';
 import {
   TaskGroupList,
   TaskItem,
 } from '../../shared/components/lists/lists.model';
-import { TaskService } from '../../core/services/task/task.service';
+import { MainComponent } from '../../shared/layouts/main/main.component';
 import {
   calculatePercentageTaskCompleted,
   mapToTaskGroup,
 } from '../../shared/utils/tasks/tasks.utils';
+import { CompleteTaskComponent } from './components/complete-task/complete-task.component';
+import { DeleteTaskComponent } from './components/delete-task/delete-task.component';
+import { EditTaskComponent } from './components/edit-task/edit-task.component';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +37,7 @@ import {
   styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-  public isLoading: boolean = false;
+  public isTasksLoading: boolean = false;
   public tasksGroup: TaskGroupList = {
     TODO: [],
     IN_PROGRESS: [],
@@ -44,6 +46,7 @@ export class HomeComponent implements OnInit {
     DONE: [],
   };
   public percentageTasksCompleted: number | null = null;
+  public tasksLoading: string[] = [];
 
   constructor(
     private readonly dialog: MatDialog,
@@ -55,8 +58,22 @@ export class HomeComponent implements OnInit {
     this.getTasks();
   }
 
-  public refreshTasks(): void {
+  public handleRefreshTasks(): void {
     this.getTasks();
+  }
+
+  public handleCompleteTaskClick(task: TaskItem): void {
+    this.showCompleteTaskDialog({
+      taskId: task.taskId,
+      title: task.title,
+    });
+  }
+
+  public handleDeleteTaskClick(task: TaskItem): void {
+    this.showDeleteTaskDialog({
+      taskId: task.taskId,
+      title: task.title,
+    });
   }
 
   public showCreateTask(): void {
@@ -85,20 +102,47 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      if (result?.['saved']) {
+      if (result?.saved) {
+        this.getTasks();
+      }
+    });
+  }
+
+  private showDeleteTaskDialog(data: Record<string, any>): void {
+    const dialogRef = this.dialog.open(DeleteTaskComponent, {
+      maxWidth: '540px',
+      width: 'calc(100% - 40px)',
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.deleted) {
+        this.getTasks();
+      }
+    });
+  }
+
+  private showCompleteTaskDialog(data: Record<string, any>): void {
+    const dialogRef = this.dialog.open(CompleteTaskComponent, {
+      maxWidth: '540px',
+      width: 'calc(100% - 40px)',
+      data,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.completed) {
         this.getTasks();
       }
     });
   }
 
   private getTasks(): void {
-    this.isLoading = true;
+    this.isTasksLoading = true;
 
     this.taskService.getTasks().subscribe({
       next: (result) => {
         this.tasksGroup = mapToTaskGroup(result);
-        this.percentageTasksCompleted =
-          calculatePercentageTaskCompleted(result);
+        this.percentageTasksCompleted = calculatePercentageTaskCompleted(result);
       },
       error: (error) => {
         this.showNotification(
@@ -106,7 +150,7 @@ export class HomeComponent implements OnInit {
         );
       },
       complete: () => {
-        this.isLoading = false;
+        this.isTasksLoading = false;
       },
     });
   }
@@ -117,5 +161,33 @@ export class HomeComponent implements OnInit {
       verticalPosition: 'bottom',
       horizontalPosition: 'left',
     });
+  }
+
+  private updateStatus(taskId: string, status: string): void {
+    this.enableLoadingToTask(taskId);
+    this.taskService.updateStatusTask(taskId, status).subscribe({
+      next: () => {
+        this.getTasks();
+      },
+      error: (error) => {
+        this.showNotification(
+          error.message || 'Error inesperado al obtener las tareas',
+        );
+      },
+      complete: () => {
+        this.disableLoadingToTask(taskId);
+      },
+    });
+  }
+
+  private enableLoadingToTask(taskId: string): void {
+    this.tasksLoading.push(taskId);
+  }
+
+  private disableLoadingToTask(taskId: string): void {
+    const taskIdIndex = this.tasksLoading.indexOf(taskId);
+    if (taskIdIndex < 0) return;
+
+    this.tasksLoading.splice(taskIdIndex, 1);
   }
 }

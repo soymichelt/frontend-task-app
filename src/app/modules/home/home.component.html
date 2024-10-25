@@ -7,10 +7,10 @@
         <span *ngIf="percentageTasksCompleted === null">Sin tareas de momento</span>
       </h1>
       <div class="page__header__actions">
-        <button mat-icon-button (click)="refreshTasks()" [disabled]="isLoading">
+        <button mat-icon-button (click)="handleRefreshTasks()" [disabled]="isTasksLoading">
           <mat-icon>refresh</mat-icon>
         </button>
-        <button mat-raised-button color="accent" (click)="showCreateTask()" [disabled]="isLoading">
+        <button mat-raised-button color="accent" (click)="showCreateTask()" [disabled]="isTasksLoading">
           <mat-icon>add</mat-icon>
           Añadir
         </button>
@@ -19,7 +19,8 @@
 
     <section class="page__content">
       <app-lists [tasks]="tasksGroup" (onAddTaskClick)="showCreateTaskWithGroupSelected($event)"
-        (onEditTaskClick)="showEditTask($event)"></app-lists>
+        (onEditTaskClick)="showEditTask($event)" (onCompleteTaskClick)="handleCompleteTaskClick($event)"
+        (onDeleteTaskClick)="handleDeleteTaskClick($event)"></app-lists>
     </section>
   </div>
 </app-main>
