@@ -1,0 +1,17 @@
+<div class="completando-task">
+  <app-custom-dialog title="Completando tarea 😎">
+    <p>
+      Enhorabuena por haber finalizado la tarea <strong>{{title}}</strong>.
+      Este logro es un reflejo de tu capacidad para ser resiliente y disciplinado,
+      cualidades que sin duda impulsarán tu productividad de manera constante.
+      Cada tarea que finalizas no solo te acerca a tus objetivos, sino que
+      también fortalece tu determinación. 🥳🚀💪
+    </p>
+
+    <div class="edit-task__actions" actions>
+      <button mat-button (click)="handleCancelClick()" [disabled]="isLoading">Cancelar</button>
+      <button mat-raised-button (click)="handleCompleteClick()" color="accent" type="button"
+        [disabled]="isLoading">Completar Tarea</button>
+    </div>
+  </app-custom-dialog>
+</div>
