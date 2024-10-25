@@ -1,4 +1,5 @@
 import { faker } from '@faker-js/faker';
+
 import { TaskModel } from './task.model';
 
 export class TaskMock {
@@ -33,7 +34,7 @@ export class TaskMock {
 
   public static buildTaskList(count: number = 3): TaskModel[] {
     const result: TaskModel[] = [];
-    for (let i = 0; i <= count; i++) {
+    for (let i = 0; i <= count; i += 1) {
       const taskMock = this.buildTask();
       result.push(taskMock);
     }
@@ -41,4 +42,3 @@ export class TaskMock {
     return result;
   }
 }
-

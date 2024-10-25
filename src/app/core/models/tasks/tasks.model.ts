@@ -4,4 +4,3 @@ import { TaskModel } from './task.model';
 export type TasksResultModel = Omit<SuccessResultModel, 'body'> & {
   body: TaskModel[];
 };
-

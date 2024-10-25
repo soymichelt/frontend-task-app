@@ -6,14 +6,18 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component, EventEmitter, Input, Output
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
-import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
 import { groups } from '../../utils/tasks/tasks.utils';
+import {
+  GroupKey, GroupType, TaskGroupList, TaskItem
+} from './lists.model';
 
 @Component({
   selector: 'app-lists',
@@ -33,11 +37,11 @@ import { groups } from '../../utils/tasks/tasks.utils';
   styleUrl: './lists.component.scss',
 })
 export class ListsComponent {
-  @Output() onAddTaskClick = new EventEmitter<string>();
-  @Output() onEditTaskClick = new EventEmitter<TaskItem>();
-  @Output() onDeleteTaskClick = new EventEmitter<TaskItem>();
-  @Output() onCompleteTaskClick = new EventEmitter<TaskItem>();
-  @Output() onUpdateTaskStatus = new EventEmitter<{
+  @Output() handleAddTaskClick = new EventEmitter<string>();
+  @Output() handleEditTaskClick = new EventEmitter<TaskItem>();
+  @Output() handleDeleteTaskClick = new EventEmitter<TaskItem>();
+  @Output() handleCompleteTaskClick = new EventEmitter<TaskItem>();
+  @Output() handleUpdateTaskStatus = new EventEmitter<{
     task: TaskItem;
     newStatus: string;
   }>();
@@ -66,7 +70,7 @@ export class ListsComponent {
     const task = data?.[event.currentIndex];
     const newStatus = event.container.id.replace('_LIST', '');
 
-    this.onUpdateTaskStatus.emit({
+    this.handleUpdateTaskStatus.emit({
       task,
       newStatus,
     });
@@ -87,28 +91,27 @@ export class ListsComponent {
   }
 
   public getListConnectedTo(groupKey: GroupKey): string[] {
-    const connectedTo =
-      groups
-        .filter(({ key }) => key !== groupKey)
-        .map(({ key }) => `${key}_LIST`) || [];
+    const connectedTo = groups
+      .filter(({ key }) => key !== groupKey)
+      .map(({ key }) => `${key}_LIST`) || [];
 
     return connectedTo;
   }
 
-  public handleAddTaskClick(group: string): void {
-    this.onAddTaskClick.emit(group);
+  public onAddTaskClick(group: string): void {
+    this.handleAddTaskClick.emit(group);
   }
 
-  public handleEditTaskClick(task: TaskItem): void {
-    this.onEditTaskClick.emit(task);
+  public onEditTaskClick(task: TaskItem): void {
+    this.handleEditTaskClick.emit(task);
   }
 
-  public handleDeleteTaskClick(task: TaskItem): void {
-    this.onDeleteTaskClick.emit(task);
+  public onDeleteTaskClick(task: TaskItem): void {
+    this.handleDeleteTaskClick.emit(task);
   }
 
-  public handleCompleteTaskClick(task: TaskItem): void {
-    this.onCompleteTaskClick.emit(task);
+  public onCompleteTaskClick(task: TaskItem): void {
+    this.handleCompleteTaskClick.emit(task);
   }
 
   public taskIsCompleted(status: string): boolean {

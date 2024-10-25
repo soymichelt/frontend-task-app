@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { TasksResultModel } from '../../models/tasks/tasks.model';
 import { environment } from '../../../environments/environment';
-import { TaskResultModel } from '../../models/tasks/task.model';
 import { SuccessResultModel } from '../../models/result/success-result.model';
+import { TaskResultModel } from '../../models/tasks/task.model';
 import { TaskUpdateModel } from '../../models/tasks/task-update.model';
+import { TasksResultModel } from '../../models/tasks/tasks.model';
 
 @Injectable({
   providedIn: 'root',
@@ -54,4 +54,3 @@ export class TaskService {
     );
   }
 }
-

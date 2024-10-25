@@ -128,4 +128,3 @@ describe('Tasks utils tests', () => {
     });
   });
 });
-

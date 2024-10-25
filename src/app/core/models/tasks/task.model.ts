@@ -14,4 +14,3 @@ export type TaskModel = {
 export type TaskResultModel = Omit<SuccessResultModel, 'body'> & {
   body: TaskModel;
 };
-

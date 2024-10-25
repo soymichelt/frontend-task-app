@@ -19,20 +19,19 @@ export const mapToTaskGroup = (tasks: TasksResultModel): TaskGroupList => {
   const result: TaskGroupList = {} as TaskGroupList;
 
   groups.forEach(({ key }) => {
-    const tasksGroup =
-      tasks.body
-        .filter(({ status }) => status === key)
-        .map(
-          (task): TaskItem => ({
-            taskId: task.taskId,
-            title: task.title,
-            description: task.description,
-            deadline: task.deadline,
-            status: task.status as GroupKey,
-            level: task.level as Level,
-            createdAt: task.createdAt,
-          }),
-        ) || [];
+    const tasksGroup = tasks.body
+      .filter(({ status }) => status === key)
+      .map(
+        (task): TaskItem => ({
+          taskId: task.taskId,
+          title: task.title,
+          description: task.description,
+          deadline: task.deadline,
+          status: task.status as GroupKey,
+          level: task.level as Level,
+          createdAt: task.createdAt,
+        }),
+      ) || [];
 
     result[key] = tasksGroup;
   });
@@ -43,8 +42,7 @@ export const mapToTaskGroup = (tasks: TasksResultModel): TaskGroupList => {
 export const calculatePercentageTaskCompleted = (
   tasks: TasksResultModel,
 ): number | null => {
-  const tasksCompleted =
-    tasks.body?.filter(({ status }) => status === 'DONE').length || 0;
+  const tasksCompleted = tasks.body?.filter(({ status }) => status === 'DONE').length || 0;
   const totalTasks = tasks.body?.length || 0;
   if (totalTasks === 0) return null;
 

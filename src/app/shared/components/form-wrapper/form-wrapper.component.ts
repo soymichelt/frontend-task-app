@@ -11,4 +11,3 @@ import { RouterModule } from '@angular/router';
   styleUrl: './form-wrapper.component.scss',
 })
 export class FormWrapperComponent {}
-

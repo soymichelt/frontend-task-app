@@ -10,9 +10,9 @@ import {
 import { from, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
-import { UserAuthType } from '../models/users/userAuth.model';
 import { environment } from '../../environments/environment';
 import { UserRegisteredResultModel } from '../models/users/user-registered.model';
+import { UserAuthType } from '../models/users/userAuth.model';
 
 @Injectable({
   providedIn: 'root',

@@ -4,13 +4,13 @@ import {
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 
-import { TaskService } from './task.service';
 import { environment } from '../../../environments/environment';
-import { TasksResultModel } from '../../models/tasks/tasks.model';
-import { TaskMock } from '../../models/tasks/task.mock';
 import { SuccessResultModel } from '../../models/result/success-result.model';
-import { TaskUpdateModel } from '../../models/tasks/task-update.model';
+import { TaskMock } from '../../models/tasks/task.mock';
 import { TaskResultModel } from '../../models/tasks/task.model';
+import { TaskUpdateModel } from '../../models/tasks/task-update.model';
+import { TasksResultModel } from '../../models/tasks/tasks.model';
+import { TaskService } from './task.service';
 
 describe('TaskService tests', () => {
   let taskService: TaskService;
@@ -103,4 +103,3 @@ describe('TaskService tests', () => {
     req.flush(successResponse);
   });
 });
-

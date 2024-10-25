@@ -10,7 +10,7 @@
         </span>
       </h2>
 
-      <button mat-icon-button (click)="handleAddTaskClick(group.key)">
+      <button mat-icon-button (click)="onAddTaskClick(group.key)">
         <mat-icon>add</mat-icon>
       </button>
     </header>
@@ -31,10 +31,10 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" color="accent">
-            <button mat-menu-item (click)="handleEditTaskClick(item)">
+            <button mat-menu-item (click)="onEditTaskClick(item)">
               <span>Editar</span>
             </button>
-            <button mat-menu-item (click)="handleDeleteTaskClick(item)">
+            <button mat-menu-item (click)="onDeleteTaskClick(item)">
               <span>Eliminar</span>
             </button>
           </mat-menu>
@@ -54,7 +54,7 @@
           </span>
 
           @if (!taskIsCompleted(item.status)) {
-          <button mat-stroked-button (click)="handleCompleteTaskClick(item)">Complete</button>
+          <button mat-stroked-button (click)="onCompleteTaskClick(item)">Complete</button>
           }
         </footer>
       </article>
@@ -63,7 +63,7 @@
       <div class="list-container__list__empty">
         <img [alt]="'Fondo de grupo de tareas ' + group.key" [ngSrc]="'assets/images/' + group.key + '.png'" width="72"
           height="72" priority />
-        <button mat-stroked-button color="accent" (click)="handleAddTaskClick(group.key)">
+        <button mat-stroked-button color="accent" (click)="onAddTaskClick(group.key)">
           <mat-icon>add</mat-icon>
           Añadir Tarea
         </button>

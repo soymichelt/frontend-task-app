@@ -5,7 +5,8 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, from, switchMap } from 'rxjs';
+import { from, Observable, switchMap } from 'rxjs';
+
 import { AuthService } from '../../services/auth.service';
 
 @Injectable({
@@ -35,4 +36,3 @@ export class AuthInterceptor implements HttpInterceptor {
     );
   }
 }
-

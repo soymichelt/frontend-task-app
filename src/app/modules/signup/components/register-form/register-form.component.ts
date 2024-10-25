@@ -13,8 +13,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 
-import { FormWrapperComponent } from '../../../../shared/components/form-wrapper/form-wrapper.component';
 import { AuthService } from '../../../../core/services/auth.service';
+import { FormWrapperComponent } from '../../../../shared/components/form-wrapper/form-wrapper.component';
 
 @Component({
   selector: 'app-register-form',
@@ -111,4 +111,3 @@ export class RegisterFormComponent {
     });
   }
 }
-

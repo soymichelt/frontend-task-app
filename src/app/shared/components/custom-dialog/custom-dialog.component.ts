@@ -11,4 +11,3 @@ import { MatDialogModule } from '@angular/material/dialog';
 export class CustomDialogComponent {
   @Input() title!: string;
 }
-

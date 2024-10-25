@@ -18,10 +18,10 @@
     </header>
 
     <section class="page__content">
-      <app-lists [tasks]="tasksGroup" (onAddTaskClick)="showCreateTaskWithGroupSelected($event)"
-        (onEditTaskClick)="showEditTask($event)" (onCompleteTaskClick)="handleCompleteTaskClick($event)"
-        (onDeleteTaskClick)="handleDeleteTaskClick($event)"
-        (onUpdateTaskStatus)="handleUpdateTaskStatus($event)"></app-lists>
+      <app-lists [tasks]="tasksGroup" (handleAddTaskClick)="showCreateTaskWithGroupSelected($event)"
+        (handleEditTaskClick)="showEditTask($event)" (handleCompleteTaskClick)="handleCompleteTaskClick($event)"
+        (handleDeleteTaskClick)="handleDeleteTaskClick($event)"
+        (handleUpdateTaskStatus)="handleUpdateTaskStatus($event)"></app-lists>
     </section>
   </div>
 </app-main>
