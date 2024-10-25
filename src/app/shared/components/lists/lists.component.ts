@@ -6,18 +6,14 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import {
-  Component, EventEmitter, Input, Output
-} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { groups } from '../../utils/tasks/tasks.utils';
-import {
-  GroupKey, GroupType, TaskGroupList, TaskItem
-} from './lists.model';
+import { GroupKey, GroupType, TaskGroupList, TaskItem } from './lists.model';
 
 @Component({
   selector: 'app-lists',
@@ -91,9 +87,10 @@ export class ListsComponent {
   }
 
   public getListConnectedTo(groupKey: GroupKey): string[] {
-    const connectedTo = groups
-      .filter(({ key }) => key !== groupKey)
-      .map(({ key }) => `${key}_LIST`) || [];
+    const connectedTo =
+      groups
+        .filter(({ key }) => key !== groupKey)
+        .map(({ key }) => `${key}_LIST`) || [];
 
     return connectedTo;
   }

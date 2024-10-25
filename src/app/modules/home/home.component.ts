@@ -157,7 +157,8 @@ export class HomeComponent implements OnInit {
     this.taskService.getTasks().subscribe({
       next: (result) => {
         this.tasksGroup = mapToTaskGroup(result);
-        this.percentageTasksCompleted = calculatePercentageTaskCompleted(result);
+        this.percentageTasksCompleted =
+          calculatePercentageTaskCompleted(result);
       },
       error: (error) => {
         this.showNotification(
