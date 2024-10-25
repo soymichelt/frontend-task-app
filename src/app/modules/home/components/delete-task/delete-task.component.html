@@ -1,0 +1,16 @@
+<div class="delete-task">
+  <app-custom-dialog title="Eliminando tarea 😣">
+    <p>
+      ¿Estás seguro de que deseas eliminar la tarea <strong>{{title}}</strong>?
+      Ten en cuenta que este es un proceso irreversible. Una vez eliminada, no
+      habrá manera de recuperarla ni acceder a la información que contiene lo que
+      podría afectar tu productividad.
+    </p>
+
+    <div class="edit-task__actions" actions>
+      <button mat-button (click)="handleCancelClick()" [disabled]="isLoading">Cancelar</button>
+      <button mat-raised-button (click)="handleDeleteClick()" color="accent" type="button"
+        [disabled]="isLoading">Confirmar Eliminación</button>
+    </div>
+  </app-custom-dialog>
+</div>
