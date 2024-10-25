@@ -10,6 +10,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 
 import { FormWrapperComponent } from '../../../../shared/components/form-wrapper/form-wrapper.component';
@@ -23,6 +24,7 @@ import { AuthService } from '../../../../core/services/auth.service';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     ReactiveFormsModule,
     RouterModule,
     FormWrapperComponent,
@@ -38,6 +40,7 @@ export class AuthFormComponent {
     private readonly formBuilder: FormBuilder,
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -60,11 +63,12 @@ export class AuthFormComponent {
       })
       .subscribe({
         next: (user) => {
-          console.log('Signed in >>> ', user);
           this.router.navigate(['/']);
         },
         error: (error) => {
-          console.log('Error >>>> ', error);
+          this.showNotification(
+            error.message || 'Error inesperado al inicar sesión',
+          );
         },
         complete: () => {
           this._isLoading = false;
@@ -101,5 +105,13 @@ export class AuthFormComponent {
     }
 
     return field;
+  }
+
+  private showNotification(message: string): void {
+    this.snackBar.open(message, 'Done', {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'left',
+    });
   }
 }
