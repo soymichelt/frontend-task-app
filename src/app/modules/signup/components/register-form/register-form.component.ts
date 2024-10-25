@@ -64,13 +64,12 @@ export class RegisterFormComponent {
       .subscribe({
         next: () => {
           this.router.navigate(['/']);
+          this.isLoading = false;
         },
         error: (error) => {
           this.showNotification(
             error.message || 'Error inesperado al registrarse',
           );
-        },
-        complete: () => {
           this.isLoading = false;
         },
       });

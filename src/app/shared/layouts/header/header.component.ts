@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
@@ -14,6 +15,7 @@ import { AuthService } from '../../../core/services/auth.service';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatSnackBarModule,
     NgOptimizedImage,
     RouterModule,
   ],
@@ -28,6 +30,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router,
+    private readonly snackBar: MatSnackBar,
   ) {}
 
   public ngOnInit(): void {
@@ -44,10 +47,20 @@ export class HeaderComponent implements OnInit {
     this.authService.logout().subscribe({
       next: () => {
         this.router.navigate(['/signin']);
-      },
-      complete: () => {
         this.isLoading = false;
       },
+      error: (error) => {
+        this.showNotification(error.message || 'Error inesperado en signout');
+        this.isLoading = false;
+      },
+    });
+  }
+
+  private showNotification(message: string): void {
+    this.snackBar.open(message, 'Done', {
+      duration: 5000,
+      verticalPosition: 'bottom',
+      horizontalPosition: 'left',
     });
   }
 }

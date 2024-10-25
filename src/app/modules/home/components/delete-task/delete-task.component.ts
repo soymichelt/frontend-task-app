@@ -46,13 +46,12 @@ export class DeleteTaskComponent {
     this.taskService.deleteTask(this.taskId).subscribe({
       next: () => {
         this.handleCancelClick(true);
+        this.isLoading = false;
       },
       error: (error) => {
         this.showNotification(
           error.message || 'Ha ocurrido un error inesperado',
         );
-      },
-      complete: () => {
         this.isLoading = false;
       },
     });

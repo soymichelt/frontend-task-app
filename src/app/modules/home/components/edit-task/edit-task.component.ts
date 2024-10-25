@@ -103,13 +103,12 @@ export class EditTaskComponent {
     actionResult.subscribe({
       next: (result) => {
         this.onCancelClick(result.body);
+        this.isLoading = false;
       },
       error: (error) => {
         this.showNotification(
           error.message || 'Ha ocurrido un error inesperado',
         );
-      },
-      complete: () => {
         this.isLoading = false;
       },
     });

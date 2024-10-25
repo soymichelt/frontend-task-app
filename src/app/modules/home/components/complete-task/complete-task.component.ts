@@ -46,13 +46,12 @@ export class CompleteTaskComponent {
     this.taskService.updateStatusTask(this.taskId, 'DONE').subscribe({
       next: () => {
         this.handleCancelClick(true);
+        this.isLoading = false;
       },
       error: (error) => {
         this.showNotification(
           error.message || 'Ha ocurrido un error inesperado',
         );
-      },
-      complete: () => {
         this.isLoading = false;
       },
     });

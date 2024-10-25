@@ -159,13 +159,12 @@ export class HomeComponent implements OnInit {
         this.tasksGroup = mapToTaskGroup(result);
         this.percentageTasksCompleted =
           calculatePercentageTaskCompleted(result);
+        this.isTasksLoading = false;
       },
       error: (error) => {
         this.showNotification(
           error.message || 'Error inesperado al obtener las tareas',
         );
-      },
-      complete: () => {
         this.isTasksLoading = false;
       },
     });

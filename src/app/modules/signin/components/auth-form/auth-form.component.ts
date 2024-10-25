@@ -64,13 +64,12 @@ export class AuthFormComponent {
       .subscribe({
         next: () => {
           this.router.navigate(['/']);
+          this.isLoading = false;
         },
         error: (error) => {
           this.showNotification(
             error.message || 'Error inesperado al inicar sesión',
           );
-        },
-        complete: () => {
           this.isLoading = false;
         },
       });
