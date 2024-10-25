@@ -37,6 +37,10 @@ export class ListsComponent {
   @Output() onEditTaskClick = new EventEmitter<TaskItem>();
   @Output() onDeleteTaskClick = new EventEmitter<TaskItem>();
   @Output() onCompleteTaskClick = new EventEmitter<TaskItem>();
+  @Output() onUpdateTaskStatus = new EventEmitter<{
+    task: TaskItem;
+    newStatus: string;
+  }>();
 
   @Input() public tasks!: TaskGroupList;
 
@@ -57,6 +61,15 @@ export class ListsComponent {
       event.previousIndex,
       event.currentIndex,
     );
+
+    const { data } = event.container;
+    const task = data?.[event.currentIndex];
+    const newStatus = event.container.id.replace('_LIST', '');
+
+    this.onUpdateTaskStatus.emit({
+      task,
+      newStatus,
+    });
   }
 
   public getListData(groupKey: GroupKey): TaskItem[] {

@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { debounceTime, switchMap } from 'rxjs/operators';
 
 import { TaskService } from '../../core/services/task/task.service';
 import { ListsComponent } from '../../shared/components/lists/lists.component';
@@ -19,6 +20,7 @@ import {
 import { CompleteTaskComponent } from './components/complete-task/complete-task.component';
 import { DeleteTaskComponent } from './components/delete-task/delete-task.component';
 import { EditTaskComponent } from './components/edit-task/edit-task.component';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -46,20 +48,23 @@ export class HomeComponent implements OnInit {
     DONE: [],
   };
   public percentageTasksCompleted: number | null = null;
-  public tasksLoading: string[] = [];
+
+  private getTasksSubject = new Subject<void>();
 
   constructor(
     private readonly dialog: MatDialog,
     private readonly taskService: TaskService,
     private readonly snackBar: MatSnackBar,
-  ) {}
+  ) {
+    this.initializeGetTasksSubject();
+  }
 
   public ngOnInit(): void {
     this.getTasks();
   }
 
   public handleRefreshTasks(): void {
-    this.getTasks();
+    this.executeGetTasks();
   }
 
   public handleCompleteTaskClick(task: TaskItem): void {
@@ -74,6 +79,16 @@ export class HomeComponent implements OnInit {
       taskId: task.taskId,
       title: task.title,
     });
+  }
+
+  public handleUpdateTaskStatus(changes: {
+    task: TaskItem;
+    newStatus: string;
+  }): void {
+    const { task, newStatus } = changes;
+    if (task.status === newStatus) return;
+
+    this.updateStatus(task.taskId, newStatus);
   }
 
   public showCreateTask(): void {
@@ -103,7 +118,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.saved) {
-        this.getTasks();
+        this.executeGetTasks();
       }
     });
   }
@@ -117,7 +132,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.deleted) {
-        this.getTasks();
+        this.executeGetTasks();
       }
     });
   }
@@ -131,7 +146,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.completed) {
-        this.getTasks();
+        this.executeGetTasks();
       }
     });
   }
@@ -141,8 +156,10 @@ export class HomeComponent implements OnInit {
 
     this.taskService.getTasks().subscribe({
       next: (result) => {
+        console.log('Se ha llamado getTasks()');
         this.tasksGroup = mapToTaskGroup(result);
-        this.percentageTasksCompleted = calculatePercentageTaskCompleted(result);
+        this.percentageTasksCompleted =
+          calculatePercentageTaskCompleted(result);
       },
       error: (error) => {
         this.showNotification(
@@ -164,30 +181,28 @@ export class HomeComponent implements OnInit {
   }
 
   private updateStatus(taskId: string, status: string): void {
-    this.enableLoadingToTask(taskId);
-    this.taskService.updateStatusTask(taskId, status).subscribe({
-      next: () => {
-        this.getTasks();
-      },
-      error: (error) => {
-        this.showNotification(
-          error.message || 'Error inesperado al obtener las tareas',
-        );
-      },
-      complete: () => {
-        this.disableLoadingToTask(taskId);
-      },
-    });
+    this.taskService
+      .updateStatusTask(taskId, status)
+      .pipe(debounceTime(10000))
+      .subscribe({
+        next: () => {
+          this.executeGetTasks();
+        },
+        error: (error) => {
+          this.showNotification(
+            error.message || 'Error inesperado al obtener las tareas',
+          );
+        },
+      });
   }
 
-  private enableLoadingToTask(taskId: string): void {
-    this.tasksLoading.push(taskId);
+  private initializeGetTasksSubject(): void {
+    this.getTasksSubject
+      .pipe(debounceTime(1000))
+      .subscribe(() => this.getTasks());
   }
 
-  private disableLoadingToTask(taskId: string): void {
-    const taskIdIndex = this.tasksLoading.indexOf(taskId);
-    if (taskIdIndex < 0) return;
-
-    this.tasksLoading.splice(taskIdIndex, 1);
+  private executeGetTasks(): void {
+    this.getTasksSubject.next();
   }
 }

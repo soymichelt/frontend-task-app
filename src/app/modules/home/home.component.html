@@ -20,7 +20,8 @@
     <section class="page__content">
       <app-lists [tasks]="tasksGroup" (onAddTaskClick)="showCreateTaskWithGroupSelected($event)"
         (onEditTaskClick)="showEditTask($event)" (onCompleteTaskClick)="handleCompleteTaskClick($event)"
-        (onDeleteTaskClick)="handleDeleteTaskClick($event)"></app-lists>
+        (onDeleteTaskClick)="handleDeleteTaskClick($event)"
+        (onUpdateTaskStatus)="handleUpdateTaskStatus($event)"></app-lists>
     </section>
   </div>
 </app-main>
