@@ -34,7 +34,7 @@ import { AuthService } from '../../../../core/services/auth.service';
 })
 export class AuthFormComponent {
   public loginForm: FormGroup;
-  private _isLoading: boolean = false;
+  public isLoading: boolean = false;
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -51,7 +51,7 @@ export class AuthFormComponent {
   public onSubmit() {
     if (!this.loginForm.valid) return;
 
-    this._isLoading = true;
+    this.isLoading = true;
 
     const emailField = this.getField('email');
     const passwordField = this.getField('password');
@@ -62,7 +62,7 @@ export class AuthFormComponent {
         password: passwordField.value,
       })
       .subscribe({
-        next: (user) => {
+        next: () => {
           this.router.navigate(['/']);
         },
         error: (error) => {
@@ -71,7 +71,7 @@ export class AuthFormComponent {
           );
         },
         complete: () => {
-          this._isLoading = false;
+          this.isLoading = false;
         },
       });
   }
@@ -92,10 +92,6 @@ export class AuthFormComponent {
     }
 
     return passwordField.invalid && passwordField.touched;
-  }
-
-  public isLoading(): boolean {
-    return this._isLoading;
   }
 
   private getField(name: string): AbstractControl<any, any> {

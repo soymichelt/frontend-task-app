@@ -1,16 +1,16 @@
 <app-form-wrapper>
-  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <mat-form-field color="accent" appearance="outline" class="full-width">
+  <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+    <mat-form-field color="accent" appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput formControlName="email" type="email" required>
+      <input matInput formControlName="email" type="email" [disabled]="isLoading" required>
       <mat-error *ngIf="emailIsInvalid()">
         El email es inválido
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field color="accent" appearance="outline" class="full-width">
+    <mat-form-field color="accent" appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput formControlName="password" type="password" required>
+      <input matInput formControlName="password" type="password" [disabled]="isLoading" required>
       <mat-error *ngIf="passwordIsInvalid()">
         Contraseña requerida
       </mat-error>
@@ -20,7 +20,6 @@
       <button mat-raised-button color="accent" type="submit" [disabled]="registerForm.invalid || isLoading">
         Registrarme
       </button>
-      <a mat-button color="accent">Olvidó su contraseña?</a>
     </div>
 
     <div class="divider">
@@ -28,7 +27,8 @@
     </div>
 
     <div class="register-form__subactions">
-      <a mat-stroked-button color="accent" routerLink="/signup">Crea una cuenta</a>
+      <a mat-stroked-button color="accent" routerLink="/signup">Ingresa a tu cuenta</a>
+      <a mat-stroked-button color="accent">Olvidó su contraseña?</a>
     </div>
   </form>
 </app-form-wrapper>

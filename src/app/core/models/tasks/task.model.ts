@@ -11,7 +11,7 @@ export type TaskModel = {
   updatedAt: string;
 };
 
-export type TaskResultModel = Omit<SuccessResultModel, 'data'> & {
+export type TaskResultModel = Omit<SuccessResultModel, 'body'> & {
   body: TaskModel;
 };
 

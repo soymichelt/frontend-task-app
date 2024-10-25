@@ -9,6 +9,11 @@
     justify-content: space-between;
     margin-top: 1rem;
     width: 100%;
+
+    button {
+      display: block;
+      width: 100%;
+    }
   }
   
   & .divider {
@@ -30,6 +35,10 @@
   &__subactions {
     a {
       display: flex;
+
+      &:first-child {
+        margin-bottom: .5rem;
+      }
     }
   }
 }
