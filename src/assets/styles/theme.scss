@@ -50,21 +50,21 @@ $deep-purple-atom-palette: (
   ),
 );
 
-$blue-accent-palette: (
-  50: #e3f3fe,
-  100: #bbdfff,
-  200: #8eccff,
-  300: #5fb8ff,
-  400: #38a8ff,
-  500: #0099ff,
-  600: #048bf1,
-  700: #0478dd,
-  800: #0467cb,
-  900: #0248ac,
-  A100: #82b1ff,
-  A200: #448aff,
-  A400: #2979ff,
-  A700: #2962ff,
+$purple-accent-palette: (
+  50: #F0E6FF,
+  100: #E1CCFF,
+  200: #CFAFFF,
+  300: #B98FFF,
+  400: #7E4EE6,
+  500: #8C57FF,
+  600: #7E4EE6,
+  700: #6B45B3,
+  800: #5B3C8C,
+  900: #4A3366,
+  A100: #A379FF,
+  A200: #8C57FF,
+  A400: #7E4EE6,
+  A700: #7E4EE6,
   contrast: (
     50: $dark-primary-text,
     100: $dark-primary-text,
@@ -88,7 +88,7 @@ $atom-challenge-fe-template-primary: mat.define-palette(
   900
 );
 $atom-challenge-fe-template-accent: mat.define-palette(
-  $blue-accent-palette,
+  $purple-accent-palette,
   A200,
   A100,
   A400
