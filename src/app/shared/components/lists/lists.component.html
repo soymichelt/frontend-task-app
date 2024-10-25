@@ -53,7 +53,9 @@
             {{ item.deadline | date: 'MMM d, y' }}
           </span>
 
+          @if (!taskIsCompleted(item.status)) {
           <button mat-stroked-button (click)="handleCompleteTaskClick(item)">Complete</button>
+          }
         </footer>
       </article>
       }

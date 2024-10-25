@@ -17,21 +17,18 @@
   }
   ::-webkit-scrollbar-track {
     background: transparent;
-    border-radius: 10px;
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb {
-    // background-color: rgb(231 227 252 / 0.12);
-    background-color: transparent;
-    border-radius: 10px;
+    background-color: rgb(231 227 252 / 0.12);
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    // background-color: rgb(231 227 252 / 0.4);
-    background-color: transparent;
+    background-color: rgb(231 227 252 / 0.4);
   }
 
   scrollbar-width: thin;
-  scrollbar-color: transparent transparent;
-  // scrollbar-color: rgb(231 227 252 / 0.12) transparent;
+  scrollbar-color: rgb(231 227 252 / 0.12) transparent;
 }
 
 .list-container {
@@ -162,6 +159,14 @@
           }
         }
       }
+
+      &.item--DONE {
+        opacity: .5;
+
+        h2, p {
+          text-decoration: line-through;
+        }
+      }
     }
 
     &--empty {
@@ -194,7 +199,7 @@
   }
   ::-webkit-scrollbar-thumb {
     background-color: rgb(231 227 252 / 0.12);
-    border-radius: 10px;
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background-color: rgb(231 227 252 / 0.4);

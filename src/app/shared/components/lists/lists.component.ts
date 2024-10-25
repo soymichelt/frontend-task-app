@@ -110,4 +110,8 @@ export class ListsComponent {
   public handleCompleteTaskClick(task: TaskItem): void {
     this.onCompleteTaskClick.emit(task);
   }
+
+  public taskIsCompleted(status: string): boolean {
+    return status === 'DONE';
+  }
 }
