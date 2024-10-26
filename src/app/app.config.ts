@@ -4,7 +4,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { AuthInterceptor } from './core/interceptors/auth/auth.interceptor';
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideAuth(() => getAuth()),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideNativeDateAdapter(),
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions()),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
