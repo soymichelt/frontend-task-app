@@ -6,6 +6,7 @@ Cada tarea cuenta con una descripción y puede ser asignada a diferentes estados
 
 # Arquitectura de la aplicación
 
+![image](https://github.com/user-attachments/assets/7f04045e-05b5-458c-a87b-8108a8f6a537)
 
 
 # Instrucciones de Uso
