@@ -1,0 +1,30 @@
+.not-found-page {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  .not-found {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1.5rem;
+    max-width: 320px;
+
+    &__title {
+      font-size: 2rem;
+      margin: 0;
+      margin-top: 1rem;
+    }
+
+    &__description {
+      text-align: center;
+      font-size: 1.25rem;
+      margin: 0;
+      margin-top: 1rem;
+    }
+  }
+}

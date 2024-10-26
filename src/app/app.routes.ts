@@ -30,4 +30,11 @@ export const routes: Routes = [
       return m.SignupComponent;
     },
   },
+  {
+    path: '**',
+    loadComponent: async () => {
+      const m = await import('./modules/404/404.component');
+      return m.NotFound404Component;
+    },
+  },
 ];
