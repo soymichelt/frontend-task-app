@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -49,8 +50,12 @@ export class CompleteTaskComponent {
         this.isLoading = false;
       },
       error: (error) => {
+        const errorMessage =
+          error instanceof HttpErrorResponse
+            ? error.error.body.message
+            : error.message;
         this.showNotification(
-          error.message || 'Ha ocurrido un error inesperado',
+          errorMessage || 'Ha ocurrido un error inesperado',
         );
         this.isLoading = false;
       },

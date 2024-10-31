@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import {
   AbstractControl,
@@ -59,7 +60,7 @@ export class EditTaskComponent {
     private readonly snackBar: MatSnackBar,
   ) {
     this.taskSelectedId = dialogData?.['taskSelectedId'];
-    this.isNew = dialogData?.['isNew'] || true;
+    this.isNew = dialogData?.['isNew'] ?? true;
 
     this.editForm = this.formBuilder.group({
       title: [
@@ -106,8 +107,12 @@ export class EditTaskComponent {
         this.isLoading = false;
       },
       error: (error) => {
+        const errorMessage =
+          error instanceof HttpErrorResponse
+            ? error.error.body.message
+            : error.message;
         this.showNotification(
-          error.message || 'Ha ocurrido un error inesperado',
+          errorMessage || 'Ha ocurrido un error inesperado',
         );
         this.isLoading = false;
       },

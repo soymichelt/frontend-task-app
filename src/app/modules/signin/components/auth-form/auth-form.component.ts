@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -67,8 +68,12 @@ export class AuthFormComponent {
           this.isLoading = false;
         },
         error: (error) => {
+          const errorMessage =
+            error instanceof HttpErrorResponse
+              ? error.error.body.message
+              : error.message;
           this.showNotification(
-            error.message || 'Error inesperado al inicar sesión',
+            errorMessage || 'Error inesperado al inicar sesión',
           );
           this.isLoading = false;
         },

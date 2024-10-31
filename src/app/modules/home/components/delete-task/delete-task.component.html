@@ -8,7 +8,7 @@
     </p>
 
     <div class="edit-task__actions" actions>
-      <button mat-button (click)="handleCancelClick()" [disabled]="isLoading">Cancelar</button>
+      <button mat-button type="button" (click)="handleCancelClick()" [disabled]="isLoading">Cancelar</button>
       <button mat-raised-button (click)="handleDeleteClick()" color="accent" type="button"
         [disabled]="isLoading">Confirmar Eliminación</button>
     </div>

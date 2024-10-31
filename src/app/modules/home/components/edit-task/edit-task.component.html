@@ -58,7 +58,7 @@
     </mat-form-field>
 
     <div class="edit-task__actions" actions>
-      <button mat-button (click)="onCancelClick()" [disabled]="isLoading">Cancelar</button>
+      <button mat-button type="button" (click)="onCancelClick()" [disabled]="isLoading">Cancelar</button>
       <button mat-raised-button color="accent" type="submit" [disabled]="editForm.invalid || isLoading">Guardar
         Cambios</button>
     </div>

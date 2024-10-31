@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {
   AbstractControl,
@@ -67,8 +68,12 @@ export class RegisterFormComponent {
           this.isLoading = false;
         },
         error: (error) => {
+          const errorMessage =
+            error instanceof HttpErrorResponse
+              ? error.error.body.message
+              : error.message;
           this.showNotification(
-            error.message || 'Error inesperado al registrarse',
+            errorMessage || 'Error inesperado al registrarse',
           );
           this.isLoading = false;
         },

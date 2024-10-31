@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -105,6 +106,7 @@ export class HomeComponent implements OnInit {
   public showEditTask(item: TaskItem): void {
     this.showEditTaskDialog({
       ...item,
+      taskSelectedId: item?.taskId,
       isNew: false,
     });
   }
@@ -162,8 +164,12 @@ export class HomeComponent implements OnInit {
         this.isTasksLoading = false;
       },
       error: (error) => {
+        const errorMessage =
+          error instanceof HttpErrorResponse
+            ? error.error.body.message
+            : error.message;
         this.showNotification(
-          error.message || 'Error inesperado al obtener las tareas',
+          errorMessage || 'Error inesperado al obtener las tareas',
         );
         this.isTasksLoading = false;
       },
@@ -187,8 +193,12 @@ export class HomeComponent implements OnInit {
           this.executeGetTasks();
         },
         error: (error) => {
+          const errorMessage =
+            error instanceof HttpErrorResponse
+              ? error.error.body.message
+              : error.message;
           this.showNotification(
-            error.message || 'Error inesperado al obtener las tareas',
+            errorMessage || 'Error inesperado al obtener las tareas',
           );
         },
       });
