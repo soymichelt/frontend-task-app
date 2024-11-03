@@ -44,7 +44,7 @@ export class RegisterFormComponent {
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -75,22 +75,12 @@ export class RegisterFormComponent {
       });
   }
 
-  public emailIsInvalid(): boolean {
-    const emailField = this.getField('email');
-    if (!emailField) {
-      return false;
-    }
+  public hasError(fieldName: string, errorName: string) {
+    const field = this.getField(fieldName);
 
-    return emailField.invalid && emailField.touched;
-  }
+    const error = field.errors?.[errorName];
 
-  public passwordIsInvalid(): boolean {
-    const passwordField = this.getField('password');
-    if (!passwordField) {
-      return false;
-    }
-
-    return passwordField.invalid && passwordField.touched;
+    return error;
   }
 
   private getField(name: string): AbstractControl<any, any> {
