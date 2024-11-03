@@ -15,7 +15,6 @@ export const routes: Routes = [
       return m.HomeComponent;
     },
     canActivate: [AuthGuard],
-    data: { animation: 'home-page' },
   },
   {
     path: 'signin',
@@ -23,7 +22,6 @@ export const routes: Routes = [
       const m = await import('./modules/signin/signin.component');
       return m.SigninComponent;
     },
-    data: { animation: 'signin-page' },
   },
   {
     path: 'signup',
@@ -31,7 +29,6 @@ export const routes: Routes = [
       const m = await import('./modules/signup/signup.component');
       return m.SignupComponent;
     },
-    data: { animation: 'signup-page' },
   },
   {
     path: '**',
@@ -39,6 +36,5 @@ export const routes: Routes = [
       const m = await import('./modules/404/404.component');
       return m.NotFound404Component;
     },
-    data: { animation: '404-page' },
   },
 ];

@@ -1,1 +1,7 @@
-<router-outlet #outlet="outlet" [@routeAnimations]="prepareRoute(outlet)" />
+<app-loading-screen *ngIf="isLoading$ | async; else app" @fadeAnimation></app-loading-screen>
+
+<ng-template #app>
+  <div class="main-content" @fadeAnimation>
+    <router-outlet />
+  </div>
+</ng-template>
