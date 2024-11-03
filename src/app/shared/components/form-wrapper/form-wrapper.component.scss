@@ -23,17 +23,9 @@
     padding-top: 1rem;
     padding-bottom: 1.5rem;
 
-    .logo {
-      align-items: center;
+    &__logo {
       display: flex;
-      font-size: 1.25rem;
-      font-weight: 500;
       justify-content: center;
-      margin-bottom: .5rem;
-      
-      img {
-        margin-right: .5rem;
-      }
     }
 
     .title {

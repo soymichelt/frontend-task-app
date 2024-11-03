@@ -7,11 +7,13 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
 
 import { AuthService } from '../../../core/services/auth.service';
+import { LogoComponent } from '../../components/logo/logo.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
+    LogoComponent,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
