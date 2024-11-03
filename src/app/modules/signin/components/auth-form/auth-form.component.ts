@@ -51,28 +51,22 @@ export class AuthFormComponent {
   public onSubmit() {
     if (!this.loginForm.valid) return;
 
-    this.isLoading = true;
+    this.markAsLoading();
 
-    const emailField = this.getField('email');
-    const passwordField = this.getField('password');
+    const { email, password } = this.loginForm.value;
 
-    this.authService
-      .login({
-        email: emailField.value,
-        password: passwordField.value,
-      })
-      .subscribe({
-        next: () => {
-          this.router.navigate(['/']);
-          this.isLoading = false;
-        },
-        error: (error) => {
-          this.showNotification(
-            error.message || 'Error inesperado al inicar sesión',
-          );
-          this.isLoading = false;
-        },
-      });
+    this.authService.login({ email, password }).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+        this.markAsLoaded();
+      },
+      error: (error) => {
+        this.showNotification(
+          error.message || 'Error inesperado al inicar sesión',
+        );
+        this.markAsLoaded();
+      },
+    });
   }
 
   public hasError(fieldName: string, errorName: string) {
@@ -90,6 +84,26 @@ export class AuthFormComponent {
     }
 
     return field;
+  }
+
+  private markAsLoading(): void {
+    this.isLoading = true;
+
+    const emailField = this.getField('email');
+    const passwordField = this.getField('password');
+
+    emailField.disable();
+    passwordField.disable();
+  }
+
+  private markAsLoaded(): void {
+    this.isLoading = false;
+
+    const emailField = this.getField('email');
+    const passwordField = this.getField('password');
+
+    emailField.enable();
+    passwordField.enable();
   }
 
   private showNotification(message: string): void {
